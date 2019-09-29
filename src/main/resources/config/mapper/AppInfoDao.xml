@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.channel.cpc.dao.AppInfoDao">
+    <resultMap id="appInfo" type="AppInfo">
+        <id property="appCode" column="app_code"/>
+        <id property="appName" column="app_name"/>
+        <id property="appId" column="app_id"/>
+        <id property="reportUrl" column="report_url"/>
+        <id property="status" column="status"/>
+        <id property="otherParams" column="other_params"/>
+        <id property="callbackUrl" column="callback_url"/>
+        <id property="isRepeatable" column="is_repeatable"/>
+        <id property="queryTableNum" column="query_table_num"/>
+        <id property="token" column="token"/>
+    </resultMap>
+
+    <select id="findAll" resultType="appInfo">
+		SELECT *
+		FROM app_info
+		WHERE status = 1
+		limit 0,2000
+	</select>
+
+</mapper>
