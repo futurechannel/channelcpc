@@ -72,6 +72,10 @@ public class CpcController extends BaseController {
                     dto.setToken(form.getToken());
                 }
 
+                if (!StringUtils.isEmpty(form.getOurCallBackUrl())) {
+                    dto.setOurCallBackUrl(form.getOurCallBackUrl());
+                }
+
                 dto.setFrom(form.getFrom());
 
                 try {

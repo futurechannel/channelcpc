@@ -22,6 +22,7 @@ public class AddCpcForm {
     private String otherParams;
     @NotEmpty
     private String from;
+    private String ourCallBackUrl;
 
 
     public String getAppCode() {
@@ -78,5 +79,13 @@ public class AddCpcForm {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getOurCallBackUrl() {
+        return ourCallBackUrl;
+    }
+
+    public void setOurCallBackUrl(String ourCallBackUrl) {
+        this.ourCallBackUrl = ourCallBackUrl;
     }
 }

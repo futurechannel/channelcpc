@@ -10,6 +10,7 @@ public class CpcReportDto {
     private String idfa;
     private String ip;
     private String from;
+    private String ourCallBackUrl;
 
     public String getAppCode() {
         return appCode;
@@ -75,6 +76,14 @@ public class CpcReportDto {
         this.from = from;
     }
 
+    public String getOurCallBackUrl() {
+        return ourCallBackUrl;
+    }
+
+    public void setOurCallBackUrl(String ourCallBackUrl) {
+        this.ourCallBackUrl = ourCallBackUrl;
+    }
+
     @Override
     public String toString() {
         return "CpcReportDto{" +
@@ -86,6 +95,7 @@ public class CpcReportDto {
                 ", idfa='" + idfa + '\'' +
                 ", ip='" + ip + '\'' +
                 ", from='" + from + '\'' +
+                ", ourCallBackUrl='" + ourCallBackUrl + '\'' +
                 '}';
     }
 }

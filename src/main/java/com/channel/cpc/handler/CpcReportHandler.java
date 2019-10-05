@@ -38,12 +38,18 @@ public class CpcReportHandler {
         String token = cpcReportDto.getToken();
         String advertCode = cpcReportDto.getAdvertCode();
         String ip = cpcReportDto.getIp();
+        String ourCallBackUrl = cpcReportDto.getOurCallBackUrl();
 
         String callback;
 
         try {
-            callback = URLEncoder.encode(ConfigUtils.getValue("our.callback.url")
-                    + "idfa=" + idfa + URL_PARAM_SEPARATOR + "appcode=" + appCode, "utf-8");
+            if(StringUtils.isEmpty(ourCallBackUrl)) {
+                callback = URLEncoder.encode(ConfigUtils.getValue("our.callback.url")
+                        + "idfa=" + idfa + URL_PARAM_SEPARATOR + "appcode=" + appCode, "utf-8");
+            } else {
+                callback = URLEncoder.encode(ourCallBackUrl
+                        + "idfa=" + idfa + URL_PARAM_SEPARATOR + "appcode=" + appCode, "utf-8");
+            }
         } catch (UnsupportedEncodingException e) {
             logger.error("encode 转码错误", e);
             throw new ApiException(ErrorCode.E901.getCode() + "");
