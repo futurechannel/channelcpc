@@ -255,6 +255,7 @@
                 <configuration>
                     <excludes>
                         <exclude>config/**</exclude>
+                        <exclude>iplist/**</exclude>
                         <exclude>log4j.properties</exclude>
                         <exclude>mybatis-config.xml</exclude>
                     </excludes>
