@@ -26,6 +26,7 @@ public class ConstantMaps {
     private static List<String> reportTableName=new ArrayList<>();
 
     public static Map<String,Integer> sendTimeMap = new HashMap<>();
+    public static Map<String,Integer> sendNumMap = new HashMap<>();
     public static Map<String,String> cpcSwitchMap = new HashMap<>();
 
     public static void setReportTables(Map<String,List<String>> reportTables) {

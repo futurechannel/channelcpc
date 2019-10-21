@@ -99,7 +99,7 @@ public class CpcController extends BaseController {
 
         logger.info("start cpc queue req:[" + GsonUtils.pojoToJson(form) + "]");
 
-        int time = form.getCpcTime() / form.getCpcNum();
+        int time = form.getCpcTime()*1000 / form.getCpcNum();
         String name = form.getAppCode() + "_" + form.getAdvertCode();
 
         AdvertInfo advertInfo = advertInfoService.findById(form.getAdvertCode(), form.getAppCode());
@@ -112,12 +112,14 @@ public class CpcController extends BaseController {
         }
 
         ConstantMaps.sendTimeMap.put(name, time);
+        ConstantMaps.sendNumMap.put(name,form.getCpcNum());
         logger.info("send cpc time :{}", time);
 
         if (!ResourceManager.getCpcMap().containsKey(name)) {
             try {
-                ResourceManager.getCpcMap().put(name, new LinkedBlockingQueue<>(15000));
+                ResourceManager.getCpcMap().put(name, new LinkedBlockingQueue<>(150000));
                 ConstantMaps.cpcSwitchMap.put(name,"1");
+                poolHelper.getExecutorService().execute(new CpcConsume(name));
                 poolHelper.getExecutorService().execute(new CpcConsume(name));
 
                 logger.info("{} cpc queue start success", name);
@@ -151,6 +153,11 @@ public class CpcController extends BaseController {
                 logger.info("{} cpc queue is stopping", name);
             } else {
                 ConstantMaps.cpcSwitchMap.put(name,"0");
+                LinkedBlockingQueue<CpcReportDto> queue = ResourceManager.getCpcMap().get(name);
+                if (queue != null) {
+                    queue.clear();
+                    ResourceManager.getCpcMap().remove(name);
+                }
                 logger.info("{} cpc queue do stop", name);
             }
 
